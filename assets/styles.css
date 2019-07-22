@@ -1,0 +1,36 @@
+p {
+    color: red;
+}
+
+.container-fluid {
+    border: 1px solid black;
+}
+
+.col-8,
+.col-34 {
+    border: 1px solid black;
+}
+
+.row {
+    border: 1px solid black;
+}
+
+.gif-box {
+    display: inline-block;
+    margin: 10px;
+    /* max-width: 300px;
+    max-height: 300px; */
+
+}
+
+img { 
+    /* max-width: 300px; 
+    max-height: 300px; 
+    width: 100%;
+    height: 100%;
+    object-fit: contain; */
+} 
+
+.gifs {
+    text-align: center;
+}
