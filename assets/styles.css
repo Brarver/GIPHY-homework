@@ -25,9 +25,9 @@ p {
 
 .add-fav {
     display: inline-block;
-    position: relative;
+    /* position: relative;
     right: 26px;
-    top: 87px;
+    top: 87px; */
 }
 
 .gifs {

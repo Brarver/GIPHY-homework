@@ -55,59 +55,71 @@ function renderButtons() {
 
         for (var i = 0; i < response.data.length; i++) {
 
-            var stillUrl = response.data[i].images.fixed_height_still.url
-            var gifUrl = response.data[i].images.fixed_height.url
+            var stillUrl = response.data[i].images.fixed_width_still.url
+            var gifUrl = response.data[i].images.fixed_width.url
 
             var gifBox = $('<div class="gif-box">')
-            var plus = $('<button>').text('+')
-            plus.addClass('add-fav')
             gifBox.attr('data-num', [i])
             gifBox.attr('data-state', 'still')
-            var gif = $('<img>').attr('src', stillUrl)
+
+            var plus = $('<button>').text('+')
+            plus.addClass('add-fav')
+            plus.attr('data-num', [i])
+            
+            var gif = $('<img class="img-box">').attr('src', stillUrl)
+            gif.attr('data-num', [i])
+            gif.attr('data-state', 'still')
             gifBox.append(gif)
             gifBox.append(plus)
             $('.gifs').append(gifBox)
             
+            
         }
 
-        $('.gif-box').on("click", function () {
+        $('.img-box').on("click", function () {
+            console.log('nope')
             var dataNum = $(this).attr('data-num')
             var state = $(this).attr('data-state')
 
             if (state === 'still') {
                 
-                gif = $('<img>').attr('src', response.data[dataNum].images.fixed_height.url)
                 $(this).attr('data-state', 'animate')
-                $(this).empty()
-
-                $(this).append(gif)
-                plus.addClass('add-fav')
-                $(this).append(plus)
-                $('.add-fav').on("click", function () {
-                    $('.gif-fav').append($(this).parent())
-                })
+                $(this).attr('src', response.data[dataNum].images.fixed_width.url)
+                
+                // plus.addClass('add-fav')
+                // $(this).append(plus)
+                // $('.add-fav').on("click", function () {
+                //     $('.gif-fav').append($(this).parent())
+                // })
                 
             } else {
                 
-                gif = $('<img>').attr('src', response.data[dataNum].images.fixed_height_still.url)
+                $(this).attr('src', response.data[dataNum].images.fixed_width_still.url)
                 $(this).attr('data-state', 'still')
-                $(this).empty()
-                $(this).append(gif)
-                plus.addClass('add-fav')
-                $(this).append(plus)
-                $('.add-fav').on("click", function () {
-                    $('.gif-fav').append($(this).parent())
-                })
+                
+                // plus.addClass('add-fav')
+                // $(this).append(plus)
+                // $('.add-fav').on("click", function () {
+                //     $('.gif-fav').append($(this).parent())
+                // })
                 
             }    
         })
 
         $('.add-fav').on("click", function (e) {
-            $(this).empty()
+            console.log('yep')
+            $(this).text('-')
+            $(this).toggleClass('rmv-fav')
+            // $(this).empty()
             // $('.gif-fav').append($(this).parent())
             $('.gif-fav').append($(this).parent())
 
             
+        })
+
+        $('.rmv-fav').on("click", function () {
+            var thisNum = $(this).attr('data-num')
+            $('.gif-fav').remove(this.parent())
         })
 
         $('.gifs').append()
@@ -117,7 +129,11 @@ function renderButtons() {
 
   $(document).on("click", ".comedian-btn", display);
 
+  $(document).on('click', function (e) {
+      console.log(e.target)
+  })
 
 
-  //Working on disappearing + box on gif clicks
+
+  //Use toggle class to toggle class on plus button
   
