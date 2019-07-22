@@ -1,5 +1,7 @@
 var comedians = ['Will Ferrell', 'Chris Farley', 'Jim Carrey', 'Damon Waynes', 'Norm MacDonald', 'Wanda Sykes']
 
+var favorites = []
+
 function renderButtons() {
 
     $(".buttons").empty();
@@ -51,42 +53,60 @@ function renderButtons() {
 
        
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < response.data.length; i++) {
 
             var stillUrl = response.data[i].images.fixed_height_still.url
             var gifUrl = response.data[i].images.fixed_height.url
 
             var gifBox = $('<div class="gif-box">')
+            var plus = $('<button>').text('+')
+            plus.addClass('add-fav')
             gifBox.attr('data-num', [i])
             gifBox.attr('data-state', 'still')
             var gif = $('<img>').attr('src', stillUrl)
             gifBox.append(gif)
+            gifBox.append(plus)
             $('.gifs').append(gifBox)
-
             
         }
 
         $('.gif-box').on("click", function () {
             var dataNum = $(this).attr('data-num')
             var state = $(this).attr('data-state')
-            console.log($(this).attr('data-state'))
 
             if (state === 'still') {
-                // $(this).empty()
+                
                 gif = $('<img>').attr('src', response.data[dataNum].images.fixed_height.url)
                 $(this).attr('data-state', 'animate')
                 $(this).empty()
+
                 $(this).append(gif)
+                plus.addClass('add-fav')
+                $(this).append(plus)
+                $('.add-fav').on("click", function () {
+                    $('.gif-fav').append($(this).parent())
+                })
                 
             } else {
-                // $(this).empty()
+                
                 gif = $('<img>').attr('src', response.data[dataNum].images.fixed_height_still.url)
                 $(this).attr('data-state', 'still')
                 $(this).empty()
                 $(this).append(gif)
+                plus.addClass('add-fav')
+                $(this).append(plus)
+                $('.add-fav').on("click", function () {
+                    $('.gif-fav').append($(this).parent())
+                })
                 
-            }
-            
+            }    
+        })
+
+        $('.add-fav').on("click", function (e) {
+            $(this).empty()
+            // $('.gif-fav').append($(this).parent())
+            $('.gif-fav').append($(this).parent())
+
             
         })
 
@@ -97,4 +117,7 @@ function renderButtons() {
 
   $(document).on("click", ".comedian-btn", display);
 
+
+
+  //Working on disappearing + box on gif clicks
   

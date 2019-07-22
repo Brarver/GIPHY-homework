@@ -23,13 +23,12 @@ p {
 
 }
 
-img { 
-    /* max-width: 300px; 
-    max-height: 300px; 
-    width: 100%;
-    height: 100%;
-    object-fit: contain; */
-} 
+.add-fav {
+    display: inline-block;
+    position: relative;
+    right: 26px;
+    top: 87px;
+}
 
 .gifs {
     text-align: center;
