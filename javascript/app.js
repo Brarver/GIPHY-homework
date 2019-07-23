@@ -26,7 +26,6 @@ function renderButtons() {
     if (comedian) {
         comedians.push(comedian);
 
-    
         renderButtons();
     }
 
@@ -34,6 +33,13 @@ function renderButtons() {
   });
 
   renderButtons()
+
+  function delGif() {
+    $('.rmv-fav').click(function (e) {
+        $(this).siblings().remove()
+        $(this).remove()
+    })
+  }
 
 
   function display() {
@@ -48,10 +54,6 @@ function renderButtons() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
-
-        console.log(response.data[0].images)
-
-       
 
         for (var i = 0; i < response.data.length; i++) {
 
@@ -77,7 +79,6 @@ function renderButtons() {
         }
 
         $('.img-box').on("click", function () {
-            console.log('nope')
             var dataNum = $(this).attr('data-num')
             var state = $(this).attr('data-state')
 
@@ -86,40 +87,21 @@ function renderButtons() {
                 $(this).attr('data-state', 'animate')
                 $(this).attr('src', response.data[dataNum].images.fixed_width.url)
                 
-                // plus.addClass('add-fav')
-                // $(this).append(plus)
-                // $('.add-fav').on("click", function () {
-                //     $('.gif-fav').append($(this).parent())
-                // })
-                
             } else {
                 
                 $(this).attr('src', response.data[dataNum].images.fixed_width_still.url)
                 $(this).attr('data-state', 'still')
                 
-                // plus.addClass('add-fav')
-                // $(this).append(plus)
-                // $('.add-fav').on("click", function () {
-                //     $('.gif-fav').append($(this).parent())
-                // })
-                
             }    
         })
 
         $('.add-fav').on("click", function (e) {
-            console.log('yep')
-            $(this).text('-')
-            $(this).toggleClass('rmv-fav')
-            // $(this).empty()
-            // $('.gif-fav').append($(this).parent())
-            $('.gif-fav').append($(this).parent())
-
             
-        })
-
-        $('.rmv-fav').on("click", function () {
-            var thisNum = $(this).attr('data-num')
-            $('.gif-fav').remove(this.parent())
+            $(this).text('-')
+            $(this).removeClass('add-fav')
+            $(this).addClass('rmv-fav')
+            $('.gif-fav').append($(this).parent())
+            delGif()
         })
 
         $('.gifs').append()
@@ -129,11 +111,5 @@ function renderButtons() {
 
   $(document).on("click", ".comedian-btn", display);
 
-  $(document).on('click', function (e) {
-      console.log(e.target)
-  })
-
-
-
-  //Use toggle class to toggle class on plus button
+  //create clickable button for each added
   
