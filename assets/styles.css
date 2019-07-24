@@ -18,26 +18,33 @@ p {
 .gif-box {
     display: inline-block;
     margin: 10px;
+    /* position: absolute; */
     /* max-width: 300px;
     max-height: 300px; */
+    width: 200px;
+    height: 200px;
 
 }
 
 .add-fav {
     display: inline-block;
-    /* position: relative;
-    right: 26px;
-    top: 87px; */
+    position: relative;
+    left: 87px;
+    bottom: 29px;
+    height: 20px;
+    width: 20px;
+    padding: 0px;
+    font-size: 10px;
 }
 
 .gifs {
     text-align: center;
 }
 
-.rating {
+/* .rating {
     display: inline-block;
     position: relative;
     left: 20px;
     bottom: 70px;
     color: yellow;
-}
+} */
