@@ -33,3 +33,11 @@ p {
 .gifs {
     text-align: center;
 }
+
+.rating {
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    bottom: 70px;
+    color: yellow;
+}
