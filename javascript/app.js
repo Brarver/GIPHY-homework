@@ -40,6 +40,7 @@ function renderButtons() {
         console.log(response)
 
         for (var i = 0; i < response.data.length; i++) {
+            console.log(response.data[0].images)
 
             var stillUrl = response.data[i].images.fixed_width_still.url
             var gifUrl = response.data[i].images.fixed_width.url
@@ -48,9 +49,9 @@ function renderButtons() {
             gifBox.attr('data-num', [i])
             gifBox.attr('data-state', 'still')
 
-            var rating = $('<span class="rating">').text(response.data[i].rating.toUpperCase())
+            var rating = $('<div class="rating">').text('Rated: ' + response.data[i].rating.toUpperCase())
 
-            var plus = $('<button>').text('+')
+            var plus = $('<div>').text('+Add Favorite')
             plus.addClass('add-fav')
             plus.attr('data-num', [i])
             
@@ -68,7 +69,7 @@ function renderButtons() {
         $('.img-box').on("click", function () {
             var dataNum = $(this).attr('data-num')
             var state = $(this).attr('data-state')
-            $(this).prev().remove()
+            // $(this).prev().remove()
             console.log(this)
 
             if (state === 'still') {
@@ -90,7 +91,7 @@ function renderButtons() {
         $('.add-fav').on("click", function (e) {
             var dataNum = $(this).attr('data-num')
 
-            $(this).text('-')
+            $(this).text('-Remove')
             $(this).removeClass('add-fav')
             $(this).addClass('rmv-fav')
             
