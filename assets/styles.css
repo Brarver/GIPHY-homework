@@ -3,11 +3,12 @@
 }
 
 html {
-    margin: auto;
+    /* margin: auto; */
 }
 
 body {
-    margin: auto;
+    /* margin: auto; */
+    background-color: rgb(32, 32, 32);
 }
 
 
@@ -37,12 +38,13 @@ p {
     border-radius: 10px;
 }
 
-.add-fav {
+.add-fav,
+.rmv-fav {
     display: block;
     position: relative;
     bottom: 5px;
     background-color: black;
-    color: yellow;
+    color: rgb(196, 196, 106);
     width: 200px;
     height: 14px;
     font-size: 10px;
@@ -50,50 +52,30 @@ p {
     text-align: center;
 }
 
-.rmv-fav {
-    display: inline-block;
-    position: relative;
-    bottom: 5px;
-    background-color: black;
-    color: yellow;
-    width: 200px;
-    height: 14px;
-    font-size: 10px;
-    padding-bottom: 15px; 
-    text-align: center;
-}
-
-.gifs {
+.gifs,
+.gif-fav {
     text-align: center;
     background-color: rgb(32, 32, 32);
     margin: auto;
+    padding-top: 50px;
 }
 
 .rating {
     color: rgb(196, 196, 106);
     font-size: 10px;
     background-color: black;
-    /* padding-left: 4px; */
     padding-right: 4px;
     padding-top: 2px;
     text-align: left;
     height: 20px;
     margin-top: -8px;
     width: 200px;
-    /* border-top: 0.1px solid rgb(196, 196, 106);
-    border-left: 0.1px solid rgb(196, 196, 106);
-    border: 0.1px solid rgb(196, 196, 106); */
-}
-
-.img-box {
-    /* display: block; */
-    vertical-align: bottom;
-}
-
-.gif-fav {
-    /* margin-right: 1px; */
 }
 
 .fav-title {
-    color: yellow;
+    color: rgb(196, 196, 106);
+}
+
+h1 {
+    padding-bottom: 30px;
 }
