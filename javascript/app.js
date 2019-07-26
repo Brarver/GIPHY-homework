@@ -1,16 +1,30 @@
-var comedians = ['Will Ferrell', 'Sarah Silverman', 'Chris Farley', 'Jim Carrey', 'Damon Waynes', 'Norm MacDonald', 'Wanda Sykes']
-var comedian
+var comedians = getComedians()
 var favorites = getFavorites()
+
+function saveComedians() {
+  localStorage.removeItem('comedians')
+  localStorage.setItem('comedians', JSON.stringify(comedians))
+}
+
+function getComedians() {
+  comedians = JSON.parse(localStorage.getItem('comedians'))
+
+  if (comedians) {
+    return comedians
+  } else {
+    return comedians = ['Will Ferrell', 'Sarah Silverman', 'Chris Farley', 'Jim Carrey', 'Damon Waynes', 'Norm MacDonald', 'Wanda Sykes']
+  }
+}
 
 
 function saveFavorites(response, dataNum) {
   favorites.push({
     gif: response.data[dataNum].images.original.url,
-    still: response.data[dataNum].images.original_still.url
+    still: response.data[dataNum].images.original_still.url,
+    rating: response.data[dataNum].rating.toUpperCase()
   })
   
-  console.log(favorites)
-  localStorage.clear()
+  localStorage.removeItem('favorites')
   localStorage.setItem('favorites', JSON.stringify(favorites))
 }
 
@@ -22,11 +36,6 @@ function getFavorites() {
   } else {
     return favorites = []
   }
-  
-
-  // for (var i = 0; i < favorites.length; i++) {
-  //   $('.gifs').append(favorites[i])
-  // }
 }
 
 function renderButtons() {
@@ -47,6 +56,60 @@ function renderButtons() {
     $('.rmv-fav').click(function () {
         $(this).siblings().remove()
         $(this).remove()
+        var num = $(this).attr('data-num')
+        favorites.splice(num, 1)
+
+        localStorage.removeItem('favorites')
+        localStorage.setItem('favorites', JSON.stringify(favorites))
+
+    })
+  }
+
+  function displayFavorites(favorites) {
+
+    $('.gif-fav').empty()
+
+    for (var i = 0; i < favorites.length; i++) {
+      var gifBox = $('<div class="gif-box">')
+      gifBox.attr('data-num', [i])
+      gifBox.attr('data-state', 'still')
+      
+
+      var rating = $('<div class="rating">').text('Rated: ' + favorites[i].rating.toUpperCase())
+
+      var plus = $('<div>').text('-Remove')
+      plus.addClass('rmv-fav')
+      plus.attr('data-num', [i])
+      
+      var gif = $('<img class="new-img-box">').attr('src', favorites[i].still)
+      gif.attr('data-still', favorites[i].still)
+      gif.attr('data-animate', favorites[i].gif)
+      gif.attr('data-num', [i])
+      gif.attr('data-state', 'still')
+      gifBox.append(rating)
+      gifBox.append(gif)
+      gifBox.append(plus)
+      $('.gif-fav').append(gifBox)
+    }
+
+    toggleFav()
+    delGif()
+  }
+
+  function toggleFav() {
+    $('.new-img-box').on('click', function() {
+      var state = $(this).attr('data-state')
+      var still = $(this).attr('data-still') 
+      var animate = $(this).attr('data-animate')
+      
+      if (state === 'still') {
+          $(this).attr('src', animate)
+          $(this).attr('data-state', 'animate')
+      } else {
+          $(this).attr('src', still)
+          $(this).attr('data-state', 'still')
+      }
+
     })
   }
 
@@ -109,49 +172,13 @@ function renderButtons() {
 
         $('.add-fav').on("click", function () {
             var dataNum = $(this).attr('data-num')
-
-            $(this).text('-Remove')
-            $(this).removeClass('add-fav')
-            $(this).addClass('rmv-fav')
-
-            $('.read').text('')
-
-            // favorites.push({
-            //   gif: response.data[dataNum].images.original.url,
-            //   still: response.data[dataNum].images.original_still.url
-            // })
-            
-            
-            
-            $('.gif-fav').append($(this).parent())
-            $($(this).siblings()).attr('data-still', response.data[dataNum].images.fixed_width_still.url)
-            $($(this).siblings()).attr('data-animate', response.data[dataNum].images.fixed_width.url)
-            $($(this).siblings()).removeClass('img-box')
-            $($(this).siblings()).addClass('new-img-box')
-            toggleFavGif()
-            delGif()
             saveFavorites(response, dataNum)
+            displayFavorites(favorites)
         })   
     });
 
   }
 
-  function toggleFavGif() {
-      $('.new-img-box').on('click', function() {
-        var state = $(this).attr('data-state')
-        var still = $(this).attr('data-still') 
-        var animate = $(this).attr('data-animate')
-        
-        if (state === 'still') {
-            $(this).children().first().attr('src', animate)
-            $(this).children().first().attr('data-state', 'animate')
-        } else {
-            $(this).children().first().attr('src', still)
-            $(this).children().first().attr('data-state', 'still')
-        }
-
-      })
-}
 
 $("#add-comedian").on("click", function(event) {
     event.preventDefault();
@@ -161,22 +188,20 @@ $("#add-comedian").on("click", function(event) {
     document.getElementById('form').reset()
 
     if (comedian) {
-        comedians.push(comedian);
+        comedians.push(comedian)
+
+        saveComedians()
 
         renderButtons();
     }
 
   });
 
+  
+  
   $(document).on("click", ".comedian-btn", display);
-
   renderButtons()
-  // getFavorites()
-
-  console.log(favorites)
-
-
-  //lines 6-11 and 101
+  displayFavorites(favorites)
 
 
   
