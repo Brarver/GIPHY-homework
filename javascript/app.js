@@ -1,15 +1,32 @@
 var comedians = ['Will Ferrell', 'Sarah Silverman', 'Chris Farley', 'Jim Carrey', 'Damon Waynes', 'Norm MacDonald', 'Wanda Sykes']
 var comedian
-var favorites = []
+var favorites = getFavorites()
 
 
-function saveFavorites() {
+function saveFavorites(response, dataNum) {
+  favorites.push({
+    gif: response.data[dataNum].images.original.url,
+    still: response.data[dataNum].images.original_still.url
+  })
+  
+  console.log(favorites)
   localStorage.clear()
   localStorage.setItem('favorites', JSON.stringify(favorites))
 }
 
 function getFavorites() {
-  localStorage.getItem
+  favorites = JSON.parse(localStorage.getItem('favorites'))
+
+  if (favorites) {
+    return favorites
+  } else {
+    return favorites = []
+  }
+  
+
+  // for (var i = 0; i < favorites.length; i++) {
+  //   $('.gifs').append(favorites[i])
+  // }
 }
 
 function renderButtons() {
@@ -46,6 +63,7 @@ function renderButtons() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
+      console.log(response)
 
         for (var i = 0; i < response.data.length; i++) {
             
@@ -98,10 +116,12 @@ function renderButtons() {
 
             $('.read').text('')
 
-            favorites.push($(this).parent())
-            console.log($(this).parent())
-            saveFavorites()
-            console.log(favorites)
+            // favorites.push({
+            //   gif: response.data[dataNum].images.original.url,
+            //   still: response.data[dataNum].images.original_still.url
+            // })
+            
+            
             
             $('.gif-fav').append($(this).parent())
             $($(this).siblings()).attr('data-still', response.data[dataNum].images.fixed_width_still.url)
@@ -110,6 +130,7 @@ function renderButtons() {
             $($(this).siblings()).addClass('new-img-box')
             toggleFavGif()
             delGif()
+            saveFavorites(response, dataNum)
         })   
     });
 
@@ -150,9 +171,14 @@ $("#add-comedian").on("click", function(event) {
   $(document).on("click", ".comedian-btn", display);
 
   renderButtons()
+  // getFavorites()
+
+  console.log(favorites)
 
 
   //lines 6-11 and 101
+
+
   
 
 
