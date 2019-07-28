@@ -32,8 +32,12 @@ function getFavorites() {
   favorites = JSON.parse(localStorage.getItem('favorites'))
 
   if (favorites) {
+    // $('.read').css('display', 'none')
     return favorites
   } else {
+    var h2 = $('<h2>').addClass('message favorite read')
+    h2.text('Click "+Add Favorite" to add your favorite GIFS here!')
+    $('.fav-title').append(h2)
     return favorites = []
   }
 }
@@ -117,7 +121,7 @@ function renderButtons() {
   function display() {
 
     $('.gifs').empty()
-    $('.gif-fav').css('display', 'block')
+    // $('.gif-fav').css('display', 'block')
 
     var comedian = $(this).attr("data-name")
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=LhxwYFwsHo6Oph8eIbyKlGIctBkkB6sn&q=" + comedian + "&limit=10&offset=0&lang=en"
@@ -171,6 +175,8 @@ function renderButtons() {
         })
 
         $('.add-fav').on("click", function () {
+            $(this).css('color', 'red')
+            $('.read').css('display', 'none')
             var dataNum = $(this).attr('data-num')
             saveFavorites(response, dataNum)
             displayFavorites(favorites)

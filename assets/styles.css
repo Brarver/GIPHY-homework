@@ -27,16 +27,27 @@ form {
     margin: auto;
 }
 
-.start {
-    margin-top: 150px;
-}
+
 
 h1 {
-    padding-bottom: 30px;
+    /* padding-bottom: 30px; */
 }
 
 .message {
     color: rgb(196, 196, 106);
+}
+
+.fav-title {
+    text-align: center;
+    width: 100%;
+}
+
+.favorite {
+    padding-top: 80px;
+}
+
+.read {
+    padding-top: 30px;
 }
 
 .gif-box {
@@ -65,8 +76,8 @@ img {
 
 }
 
-.gifs,
-.gif-fav {
+.gif-fav,
+.gifs {
     text-align: center;
     background-color: rgb(32, 32, 32);
     margin: auto;
@@ -75,11 +86,8 @@ img {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 300px;
 }
-
-/* .gif-fav {
-    display: none;
-} */
 
 .rating {
     color: rgb(196, 196, 106);
@@ -92,6 +100,8 @@ img {
     margin-top: -8px;
     width: 100%;
 }
+
+
 
 
 
